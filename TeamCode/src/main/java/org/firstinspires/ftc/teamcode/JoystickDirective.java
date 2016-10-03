@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import framework.ftc.cobaltforge.AbstractDirective;
 import framework.ftc.cobaltforge.Component;
+import framework.ftc.cobaltforge.Device;
 import framework.ftc.cobaltforge.GamePad1;
-import framework.ftc.cobaltforge.Inject;
 
 /**
  * Sample JoystickDirective for 0.1.1 CobaltForge
@@ -14,11 +14,11 @@ import framework.ftc.cobaltforge.Inject;
  */
 
 public class JoystickDirective extends AbstractDirective {
-    @Inject("motor1")
-    DcMotor dcMotor1;
+    @Device
+    DcMotor leftMotor;
 
-    @Inject("motor2")
-    DcMotor dcMotor2;
+    @Device
+    DcMotor rightMotor;
 
     @GamePad1(Component.LEFT_STICK_Y)
     float leftY;
@@ -31,8 +31,8 @@ public class JoystickDirective extends AbstractDirective {
 
     @Override
     public void onStart() {
-        dcMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
-        dcMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class JoystickDirective extends AbstractDirective {
         if (b) {
             complete();
         }
-        dcMotor1.setPower(leftY);
-        dcMotor2.setPower(rightY);
+        leftMotor.setPower(leftY);
+        rightMotor.setPower(rightY);
         telemetry(leftY);
         telemetry(rightY);
     }
