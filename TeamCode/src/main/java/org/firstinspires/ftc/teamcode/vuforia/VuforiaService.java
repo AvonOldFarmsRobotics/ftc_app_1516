@@ -17,9 +17,9 @@ import framework.ftc.cobaltforge.Inject;
  */
 public class VuforiaService {
     @Inject
-    CobaltForge cf;
+    private CobaltForge cf;
 
-    OpenGLMatrix lastLocation = null;
+    private OpenGLMatrix lastLocation;
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
@@ -37,9 +37,7 @@ public class VuforiaService {
     private float mmBotWidth = 18 * mmPerInch;            // ... or whatever is right for your robot
     private float mmFTCFieldWidth = (12 * 12 - 2) * mmPerInch;   // the FTC field is ~11'10" center-to-center of the glass panels
 
-    private String license = "";
-
-    public void init() {
+    public void init(String license) {
         parameters = new VuforiaLocalizer.Parameters(com.qualcomm.ftcrobotcontroller.R.id.cameraMonitorViewId);
         parameters.vuforiaLicenseKey = license;
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
@@ -104,7 +102,7 @@ public class VuforiaService {
         this.mmBotWidth = mmBotWidth;
     }
 
-    public void setLicense(String license) {
-        this.license = license;
+    public OpenGLMatrix getLastLocation() {
+        return lastLocation;
     }
 }
