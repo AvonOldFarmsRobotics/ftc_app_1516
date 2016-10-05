@@ -13,6 +13,6 @@ import framework.ftc.cobaltforge.examples.ExampleDirective;
 public class SampleOpMode extends CobaltForge {
     @Override
     public void onInit() {
-        addDirective(new ExampleDirective());
+        addDirective(new JoyStickDirective());
     }
 }
