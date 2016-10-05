@@ -9,7 +9,7 @@ import framework.ftc.cobaltforge.examples.ExampleDirective;
  * Created by Dummyc0m on 9/21/16.
  * Example File
  */
-@TeleOp(name = "SampleOpMode")
+@TeleOp(name = "SampgitleOpMode")
 public class SampleOpMode extends CobaltForge {
     @Override
     public void onInit() {
