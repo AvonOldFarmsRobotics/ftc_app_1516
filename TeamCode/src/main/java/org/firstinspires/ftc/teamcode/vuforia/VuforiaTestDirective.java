@@ -32,47 +32,46 @@ public class VuforiaTestDirective extends AbstractDirective {
         VuforiaTrackable gearsTrackable = trackables.get(3);
 
         OpenGLMatrix wheelsLocation = OpenGLMatrix
-                .translation(0, service.getMmFTCFieldWidth() / 2, 0)
+                .translation(service.getMmFTCFieldWidth() / 6, service.getMmFTCFieldWidth() / 2, 0)
                 .multiplied(Orientation.getRotationMatrix(
                         /* First, in the fixed (field) coordinate system, we rotate 90deg in X */
-                        AxesReference.EXTRINSIC, AxesOrder.XZX,
+                        AxesReference.EXTRINSIC, AxesOrder.XYZ,
                         AngleUnit.DEGREES, 90, 0, 0));
         wheelsTrackable.setLocation(wheelsLocation);
         RobotLog.ii("VuforiaTestDirective", "wheels=%s", wheelsLocation.formatAsTransform());
 
-
-        OpenGLMatrix toolsLocation = OpenGLMatrix
-                .translation(0, service.getMmFTCFieldWidth() / 2, 0)
-                .multiplied(Orientation.getRotationMatrix(
-                        /* First, in the fixed (field) coordinate system, we rotate 90deg in X */
-                        AxesReference.EXTRINSIC, AxesOrder.XZX,
-                        AngleUnit.DEGREES, 90, 0, 0));
-        toolsTrackable.setLocation(toolsLocation);
-        RobotLog.ii("VuforiaTestDirective", "tools=%s", toolsLocation.formatAsTransform());
-
         OpenGLMatrix legosLocation = OpenGLMatrix
-                .translation(0, service.getMmFTCFieldWidth() / 2, 0)
+                .translation(-service.getMmFTCFieldWidth() / 4, service.getMmFTCFieldWidth() / 2, 0)
                 .multiplied(Orientation.getRotationMatrix(
                         /* First, in the fixed (field) coordinate system, we rotate 90deg in X */
-                        AxesReference.EXTRINSIC, AxesOrder.XZX,
+                        AxesReference.EXTRINSIC, AxesOrder.XYZ,
                         AngleUnit.DEGREES, 90, 0, 0));
         legosTrackable.setLocation(legosLocation);
         RobotLog.ii("VuforiaTestDirective", "legos=%s", wheelsLocation.formatAsTransform());
 
         OpenGLMatrix gearsLocation = OpenGLMatrix
-                .translation(0, service.getMmFTCFieldWidth() / 2, 0)
+                .translation(-service.getMmFTCFieldWidth() / 2, -service.getMmFTCFieldWidth() / 6, 0)
                 .multiplied(Orientation.getRotationMatrix(
                         /* First, in the fixed (field) coordinate system, we rotate 90deg in X */
-                        AxesReference.EXTRINSIC, AxesOrder.XZX,
-                        AngleUnit.DEGREES, 90, 0, 0));
+                        AxesReference.EXTRINSIC, AxesOrder.XYZ,
+                        AngleUnit.DEGREES, 0, 90, 0));
         gearsTrackable.setLocation(gearsLocation);
         RobotLog.ii("VuforiaTestDirective", "gears=%s", gearsLocation.formatAsTransform());
+
+        OpenGLMatrix toolsLocation = OpenGLMatrix
+                .translation(-service.getMmFTCFieldWidth() / 2, service.getMmFTCFieldWidth() / 4, 0)
+                .multiplied(Orientation.getRotationMatrix(
+                        /* First, in the fixed (field) coordinate system, we rotate 90deg in X */
+                        AxesReference.EXTRINSIC, AxesOrder.XYZ,
+                        AngleUnit.DEGREES, 0, 90, 0));
+        toolsTrackable.setLocation(toolsLocation);
+        RobotLog.ii("VuforiaTestDirective", "tools=%s", toolsLocation.formatAsTransform());
 
         OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
                 .translation(service.getMmBotWidth() / 2, 0, 0)
                 .multiplied(Orientation.getRotationMatrix(
-                        AxesReference.EXTRINSIC, AxesOrder.YZY,
-                        AngleUnit.DEGREES, -90, 0, 0));
+                        AxesReference.EXTRINSIC, AxesOrder.XYZ,
+                        AngleUnit.DEGREES, 0, -90, 0));
         service.setPhoneLocation(phoneLocationOnRobot);
         RobotLog.ii("VuforiaTestDirective", "phone=%s", phoneLocationOnRobot.formatAsTransform());
     }
