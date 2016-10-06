@@ -11,6 +11,7 @@ import framework.ftc.cobaltforge.CobaltForge;
 public class HolonomicOpMode extends CobaltForge {
     @Override
     public void onInit() {
-
+        //addDirective(new HolonomicRotateDirective());
+        addDirective(new HolonomicTeleDirective());
     }
 }
