@@ -15,41 +15,30 @@ import framework.ftc.cobaltforge.samples.Logger;
  */
 
 public class HolonomicTeleDirective extends AbstractDirective {
-    double root2 = Math.sqrt(2);
+    double root2 = 0.5; //Math.sqrt(2);
+    double vec1X = -1;
+    double vec1Y = -1;
+    double vec2X = -1;
+    double vex2Y = 1;
+    double dir2Cached = direction(vec2X, vex2Y);
+    double dir1Cached = direction(vec1X, vec1Y);
 
     @Device
     DcMotor motor1;
-
-    double vec1X = -1;
-
-    double vec1Y = -1;
-
     @Device
     DcMotor motor2;
-
-    double vec2X = -1;
-
-    double vex2Y = 1;
-
     @Device
     DcMotor motor3;
-
     @Device
     DcMotor motor4;
-
     @Inject
     Logger logger;
-
     @GamePad1(Component.RIGHT_STICK_X)
     float x;
-
     @GamePad1(Component.RIGHT_STICK_Y)
     float y;
-
     @GamePad1(Component.LEFT_STICK_X)
     float leftX;
-    double dir2Cached = direction(vec2X, vex2Y);
-    double dir1Cached = direction(vec1X, vec1Y);
 
     @Override
     public void onStart() {
