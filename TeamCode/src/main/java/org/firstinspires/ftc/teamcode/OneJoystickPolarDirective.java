@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import framework.ftc.cobaltforge.AbstractDirective;
 import framework.ftc.cobaltforge.Inject;
@@ -12,28 +13,44 @@ import framework.ftc.cobaltforge.Inject;
 public class OneJoystickPolarDirective extends AbstractDirective {
 
     @Inject.DcMotor("motor1")
-    DcMotor dcMotor1;
+    DcMotor dcMotorL;
 
     @Inject.DcMotor("motor2")
-    DcMotor dcMotor2;
+    DcMotor dcMotorR;
 
     @Inject.GamePad1(Inject.GamePadComponent.LEFT_STICK_Y)
-    float leftY;
+    float Y;
+    //reverse
 
-    @Inject.GamePad1(Inject.GamePadComponent.RIGHT_STICK_Y)
-    float rightY;
+    @Inject.GamePad1(Inject.GamePadComponent.LEFT_STICK_X)
+    float X;
 
     @Inject.GamePad1(Inject.GamePadComponent.B)
     boolean b;
 
+    double power, angle;
 
     @Override
     public void onStart() {
-
+        dcMotorL.setDirection(DcMotorSimple.Direction.FORWARD);
+        dcMotorR.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
     public void onLoop() {
+        if (b){
+            complete();
+        }
 
+        //if (-Y > 0.1f || X > 0.1f) {
+        power = Math.sqrt(X * X + Y * Y);
+        angle = Math.atan(-Y / X);//since Y is reverse
+
+
+
+        //}
+
+        telemetry(Y);
+        telemetry(X);
     }
 }
