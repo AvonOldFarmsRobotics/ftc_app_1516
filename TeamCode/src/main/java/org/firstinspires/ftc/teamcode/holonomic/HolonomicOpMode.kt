@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.holonomic
 
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import framework.ftc.cobaltforge.kobaltforge.KobaltForge
@@ -10,6 +11,7 @@ import framework.ftc.cobaltforge.kobaltforge.annotation.GamePad1
 /**
  * Created by Dummyc0m on 10/7/16.
  */
+@TeleOp(name = "HolonomicTele")
 class HolonomicOpMode : KobaltForge() {
     internal var root2 = 0.5 //Math.sqrt(2);
     internal var vec1X = -1.0
