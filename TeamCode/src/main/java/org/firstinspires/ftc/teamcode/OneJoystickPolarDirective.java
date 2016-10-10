@@ -12,23 +12,18 @@ import framework.ftc.cobaltforge.Inject;
 
 public class OneJoystickPolarDirective extends AbstractDirective {
 
+    static double power, angle, targetL, targetR;
     @Inject.DcMotor("motor1")
     DcMotor dcMotorL;
-
     @Inject.DcMotor("motor2")
     DcMotor dcMotorR;
-
+    //reverse
     @Inject.GamePad1(Inject.GamePadComponent.LEFT_STICK_Y)
     float Y;
-    //reverse
-
     @Inject.GamePad1(Inject.GamePadComponent.LEFT_STICK_X)
     float X;
-
     @Inject.GamePad1(Inject.GamePadComponent.B)
     boolean b;
-
-    static double power, angle, targetL, targetR;
 
     @Override
     public void onStart() {
@@ -38,98 +33,66 @@ public class OneJoystickPolarDirective extends AbstractDirective {
 
     @Override
     public void onLoop() {
-        if (b){
+        if (b) {
             complete();
         }
 
-        //if (-Y > 0.1f || X > 0.1f) {
-        power = Math.sqrt(X * X + Y * Y);
-        if (X == 0f){
-            if (-Y >= 0f){
+        power = Math.min(Math.sqrt(X * X + Y * Y),1d);
+        if (X == 0f) {
+            if (-Y >= 0f) {
                 //angle = Math.PI/2;
                 targetL = 1;
                 targetR = 1;
-            }else{
+            } else {
                 //angle = Math.PI*1.5;
                 targetL = -1;
                 targetR = -1;
             }
-        }else if(Y == 0f){
-            if (X >= 0f){
+        } else if (Y == 0f) {
+            if (X >= 0f) {
                 //angle = 0d;
                 targetL = 1;
                 targetR = -1;
-            }else {
+            } else {
                 //angle = Math.PI;
                 targetL = -1;
                 targetR = 1;
             }
-        }else {
+        } else {
             angle = Math.atan(-Y / X);//since Y is reverse
-            if (angle >= 0d){
-                if (X < 0f){
-                    //angle += Math.PI;
-                    setMotorTarget(angle,3);
-                }else {
-                    setMotorTarget(angle,1);
+            if (angle >= 0d) {
+                if (X < 0f) {
+                    //angle += Math.PI; quarter3
+                    targetL = -angle / (Math.PI / 2);
+                    targetR = -1;
+                } else {
+                    //quarter1
+                    targetL = 1;
+                    targetR = angle / (Math.PI / 2);
                 }
-            }else {
-                if (X < 0f){
-                    //angle += Math.PI/2;
-                    setMotorTarget(angle,2);
-                }else {
-                    //angle += Math.PI*1.5;
-                    setMotorTarget(angle,4);
+            } else {
+                if (X < 0f) {
+                    //angle += Math.PI/2; quarter2
+                    targetL = -angle / (Math.PI / 2);
+                    targetR = 1;
+                } else {
+                    //angle += Math.PI*1.5; quarter4
+                    targetL = -1;
+                    targetR = angle / (Math.PI / 2);
                 }
             }
         }
 
-//        if (angle >= Math.PI*1.5){
-//        //[270,360)
-//
-//        }else if (angle >= Math.PI){
-//        //[180,270)
-//
-//
-//        }else if (angle >= Math.PI/2){
-//        //[90,180)
-//            targetL = 1 - (angle - Math.PI/2) / (Math.PI/2);
-//            targetR = 1;
-//        }else {
-//        //[0,90)
-//            targetL = 1;
-//            targetR = angle / (Math.PI/2);
-//        }
+        dcMotorL.setPower(targetL * power);
+        dcMotorR.setPower(targetR * power);
 
-        //}
-        dcMotorL.setPower(targetL*power);
-        dcMotorR.setPower(targetR*power);
-
-        telemetry(X);
-        telemetry(Y);
+        telemetry(targetL);
+        telemetry(targetR);
+        telemetry(power);
+//        System.out.println(targetL);
+//        System.out.println(targetR);
+//        System.out.println(power);
 
     }
-
-    void setMotorTarget(double angle, int quarter){
-        switch (quarter){
-            case 1:
-                targetL = 1;
-                targetR = angle / (Math.PI/2);
-                break;
-            case 2:
-                targetL = 1 - (-angle / (Math.PI/2));
-                targetR = 1;
-                break;
-            case 3:
-                targetL =  -angle / (Math.PI/2);
-                targetR = -1;
-                break;
-            case 4:
-                targetL = -1;
-                targetR = - (1 - (-angle / (Math.PI/2)));
-                break;
-        }
-    }
-
 
 }
