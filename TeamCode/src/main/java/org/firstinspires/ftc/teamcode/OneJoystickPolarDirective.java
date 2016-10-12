@@ -24,6 +24,8 @@ public class OneJoystickPolarDirective extends AbstractDirective {
     float X;
     @Inject.GamePad1(Inject.GamePadComponent.B)
     boolean b;
+    @Inject.GamePad1(Inject.GamePadComponent.RIGHT_TRIGGER)
+    float speedMultiplyer;
 
     @Override
     public void onStart() {
@@ -33,6 +35,7 @@ public class OneJoystickPolarDirective extends AbstractDirective {
 
     @Override
     public void onLoop() {
+
         if (b) {
             complete();
         }
@@ -63,26 +66,36 @@ public class OneJoystickPolarDirective extends AbstractDirective {
             if (angle >= 0d) {
                 if (X < 0f) {
                     //angle += Math.PI; quarter3
-                    targetL = -angle / (Math.PI / 2);
+                    //targetL = -angle / (Math.PI / 2);
+                    targetL = (-angle / Math.PI) * 4 + 1;
                     targetR = -1;
+                    //targetR = - targetL - 1d;
                 } else {
                     //quarter1
                     targetL = 1;
-                    targetR = angle / (Math.PI / 2);
+                    //targetR = angle / (Math.PI / 2);
+                      targetR = (angle / Math.PI) * 4 - 1;
+
+                    //targetL = 1d - targetR;
                 }
             } else {
                 if (X < 0f) {
                     //angle += Math.PI/2; quarter2
-                    targetL = -angle / (Math.PI / 2);
+                    //targetL = -angle / (Math.PI / 2);
+                    targetL = (-angle / Math.PI) * 4 - 1;
                     targetR = 1;
+                    //targetR = 1d - targetL;
                 } else {
                     //angle += Math.PI*1.5; quarter4
                     targetL = -1;
-                    targetR = angle / (Math.PI / 2);
+                    //targetR = angle / (Math.PI / 2);
+                    targetR = (angle / Math.PI) * 4 + 1;
+                    //targetL = - targetR - 1d;
                 }
             }
         }
 
+        power *= 1f - speedMultiplyer;
         dcMotorL.setPower(targetL * power);
         dcMotorR.setPower(targetR * power);
 
