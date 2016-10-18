@@ -3,11 +3,14 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.util.MathHelper;
+
 import framework.ftc.cobaltforge.AbstractDirective;
 import framework.ftc.cobaltforge.Inject;
 
 /**
  * Created by peiqi on 2016/10/5.
+ * Revision 1.1
  */
 
 public class OneJoystickPolarDirective extends AbstractDirective {
@@ -41,7 +44,33 @@ public class OneJoystickPolarDirective extends AbstractDirective {
         }
 
         power = Math.min(Math.sqrt(X * X + Y * Y),1d);
-        if (X == 0f) {
+
+        angle = MathHelper.atan2(-Y,X);
+        if (angle < 0){
+            //quarter 3 & 4
+            targetL = Math.max(- 4 / Math.PI * angle - 3, -1);
+            targetR = Math.max(4 / Math.PI * angle + 1, -1);
+        }else {
+            //quarter 1 & 2
+            targetL = Math.min(- 4 / Math.PI * angle + 3, 1);
+            targetR = Math.min(4 / Math.PI * angle - 1, 1);
+        }
+
+        power *= 1f - speedMultiplyer;
+        dcMotorL.setPower(targetL * power);
+        dcMotorR.setPower(targetR * power);
+
+        telemetry(targetL);
+        telemetry(targetR);
+        telemetry(power);
+//        System.out.println(targetL);
+//        System.out.println(targetR);
+//        System.out.println(power);
+
+    }
+
+    void atanOld(){
+                if (X == 0f) {
             if (-Y >= 0f) {
                 //angle = Math.PI/2;
                 targetL = 1;
@@ -94,18 +123,6 @@ public class OneJoystickPolarDirective extends AbstractDirective {
                 }
             }
         }
-
-        power *= 1f - speedMultiplyer;
-        dcMotorL.setPower(targetL * power);
-        dcMotorR.setPower(targetR * power);
-
-        telemetry(targetL);
-        telemetry(targetR);
-        telemetry(power);
-//        System.out.println(targetL);
-//        System.out.println(targetR);
-//        System.out.println(power);
-
     }
 
 }
