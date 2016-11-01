@@ -9,15 +9,17 @@ import framework.ftc.cobaltforge.kobaltforge.annotation.Device
 import framework.ftc.cobaltforge.kobaltforge.annotation.GamePad1
 
 /**
+ * Holonomic Drive Mode
  * Created by Dummyc0m on 10/7/16.
  */
 @TeleOp(name = "HolonomicTele")
-class HolonomicOpMode : KobaltForge() {
-    internal var root2 = 0.5 //Math.sqrt(2);
-    internal var vec1X = -1.0
-    internal var vec1Y = -1.0
-    internal var vec2X = -1.0
-    internal var vex2Y = 1.0
+open class HolonomicOpMode : KobaltForge() {
+    internal val vecUnit = 1 / Math.sqrt(2.0)
+    internal val motorMagnitude = Math.sqrt(vecUnit * vecUnit * 2) //Math.sqrt(2);
+    internal var vec1X = -vecUnit
+    internal var vec1Y = -vecUnit
+    internal var vec2X = -vecUnit
+    internal var vex2Y = vecUnit
     internal var dir2Cached = direction(vec2X, vex2Y)
     internal var dir1Cached = direction(vec1X, vec1Y)
 
@@ -51,30 +53,30 @@ class HolonomicOpMode : KobaltForge() {
         }
 
         onLoop {
-            x = -x
-            val signedAngle2 = dir2Cached - direction(x.toDouble(), y.toDouble())
+            // x = -x
             val signedAngle1 = dir1Cached - direction(x.toDouble(), y.toDouble())
+            val signedAngle2 = dir2Cached - direction(x.toDouble(), y.toDouble())
 
-            val magnitudeCached = magnitude(x.toDouble(), y.toDouble())
+            val joystickMagnitude = magnitude(x.toDouble(), y.toDouble())
 
-            val val1 = clamp(dotProduct(root2, magnitudeCached, signedAngle1))
-            val val2 = clamp(dotProduct(root2, magnitudeCached, signedAngle2))
+            val val1 = clamp(dotProduct(motorMagnitude, joystickMagnitude, signedAngle1))
+            val val2 = clamp(dotProduct(motorMagnitude, joystickMagnitude, signedAngle2))
 
             if (Math.abs(val1) > 0.1 || Math.abs(val2) > 0.1) {
                 motor1.power = val1
                 motor2.power = val2
                 motor3.power = val1
-                motor4.setPower(val2)
+                motor4.power = val2
             } else if (Math.abs(leftX) > 0.1) {
                 motor1.power = leftX.toDouble()
                 motor2.power = (-leftX).toDouble()
                 motor3.power = (-leftX).toDouble()
-                motor4.setPower(leftX.toDouble())
+                motor4.power = leftX.toDouble()
             } else {
                 motor1.power = 0.0
                 motor2.power = 0.0
                 motor3.power = 0.0
-                motor4.setPower(0.0)
+                motor4.power = 0.0
             }
             false
         }
@@ -100,7 +102,7 @@ class HolonomicOpMode : KobaltForge() {
     }
 
     private fun clamp(a: Double): Double {
-        return if (a > 1) 1.toDouble() else if (a < -1) -1.toDouble() else a
+        return if (a > 1) 1.0 else if (a < -1) -1.0 else a
         //return a;
     }
 }

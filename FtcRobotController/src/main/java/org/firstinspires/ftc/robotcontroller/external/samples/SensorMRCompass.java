@@ -59,7 +59,8 @@ public class SensorMRCompass extends LinearOpMode {
     ModernRoboticsI2cCompassSensor compass;
     ElapsedTime                    timer = new ElapsedTime();
 
-    @Override public void runOpMode() {
+    @Override
+    public void runOpMode() {
 
         // get a reference to our compass
         compass = hardwareMap.get(ModernRoboticsI2cCompassSensor.class, "compass");

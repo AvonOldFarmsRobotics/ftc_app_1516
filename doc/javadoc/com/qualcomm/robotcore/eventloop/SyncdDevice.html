@@ -87,11 +87,11 @@
 <br>
 <pre>public interface <span class="strong">SyncdDevice</span></pre>
 <div class="block">SyncdDevice is for a device that wants to be in sync with the event loop. If there is sync'd
- device registered with the event loop manager then the event loop manager will run the event
+    device registered with the event loop manager then the event loop manager will async the event
  loop in this manner:
  <ol>
    <li>wait until all sync'd device have returned from blockUtilReady()</li>
-   <li>run EventLoop.loop()</li>
+     <li>async EventLoop.loop()</li>
    <li>call startBlockingWork() on all sync'd device</li>
  </ol>
  Sync'd devices need to register themselves with the event loop manager</div>
@@ -116,7 +116,8 @@
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../../../com/qualcomm/robotcore/eventloop/SyncdDevice.html#blockUntilReady()">blockUntilReady</a></strong>()</code>
-<div class="block">This method should block until it is ready for the event loop to run, Once this method has
+    <div class="block">This method should block until it is ready for the event loop to async, Once
+        this method has
  returned, subsequent calls should return immediately until startBlockingWork() has been called.</div>
 </td>
 </tr>
@@ -170,7 +171,8 @@
 <pre>void&nbsp;blockUntilReady()
                      throws <a href="../../../../com/qualcomm/robotcore/exception/RobotCoreException.html" title="class in com.qualcomm.robotcore.exception">RobotCoreException</a>,
                             java.lang.InterruptedException</pre>
-<div class="block">This method should block until it is ready for the event loop to run, Once this method has
+    <div class="block">This method should block until it is ready for the event loop to async, Once
+        this method has
  returned, subsequent calls should return immediately until startBlockingWork() has been called.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code>java.lang.InterruptedException</code></dd>
@@ -189,7 +191,7 @@
  <p>
  Before this method returns, the sync'd device should put blockUntilReady() into a blocking
  state. blockUntilReady() should remain in a blocking state until the device is ready for the
- event loop to run. Once blockUntilReady() returns, it should not block again until
+     event loop to async. Once blockUntilReady() returns, it should not block again until
  startBlockingWork() has been called.</div>
 </li>
 </ul>

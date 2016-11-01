@@ -516,7 +516,7 @@ extends <a href="../../../com/qualcomm/ftccommon/FtcEventLoopBase.html" title="c
                  java.lang.InterruptedException</pre>
 <div class="block">Init method
  <p>
- This code will run when the robot first starts up. Place any initialization code in this
+     This code will async when the robot first starts up. Place any initialization code in this
  method.
  <p>
  It is important to save a copy of the event loop manager from this method, as that is how
@@ -524,7 +524,7 @@ extends <a href="../../../com/qualcomm/ftccommon/FtcEventLoopBase.html" title="c
  <p>
  If an Exception is thrown then the event loop manager will not start the robot.
  <p>
- Caller synchronizes: called on RobotSetupRunnable.run() thread</div>
+     Caller synchronizes: called on RobotSetupRunnable.async() thread</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>eventLoopManager</code> - event loop manager that is responsible for this event loop</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../com/qualcomm/robotcore/exception/RobotCoreException.html" title="class in com.qualcomm.robotcore.exception">RobotCoreException</a></code> - if a RobotCoreException is thrown, it will be handled
@@ -547,7 +547,8 @@ extends <a href="../../../com/qualcomm/ftccommon/FtcEventLoopBase.html" title="c
 <dd><code><a href="../../../com/qualcomm/robotcore/exception/RobotCoreException.html" title="class in com.qualcomm.robotcore.exception">RobotCoreException</a></code> - if a RobotCoreException is thrown, it will be handled
          by the event loop manager. The manager may decide to either stop processing
          this iteration of the loop, or it may decide to shut down the robot.</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../com/qualcomm/robotcore/eventloop/EventLoop.html#loop()"><code><p>
- Caller synchronizes: called on EventLoopRunnable.run() thread.</code></a></dd></dl>
+        Caller synchronizes: called on EventLoopRunnable.async() thread.</code></a></dd>
+</dl>
 </li>
 </ul>
 <a name="refreshUserTelemetry(TelemetryMessage, double)">
@@ -584,7 +585,8 @@ extends <a href="../../../com/qualcomm/ftccommon/FtcEventLoopBase.html" title="c
 <dd><code><a href="../../../com/qualcomm/robotcore/exception/RobotCoreException.html" title="class in com.qualcomm.robotcore.exception">RobotCoreException</a></code> - if a RobotCoreException is thrown, it will be handled by the event
          loop manager. The manager will then attempt to shut down the robot without the benefit
          of the teardown method.</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../com/qualcomm/robotcore/eventloop/EventLoop.html#teardown()"><code><p>
- Caller synchronizes: called on EventLoopRunnable.run() thread.</code></a></dd></dl>
+        Caller synchronizes: called on EventLoopRunnable.async() thread.</code></a></dd>
+</dl>
 </li>
 </ul>
 <a name="processCommand(Command)">
@@ -599,7 +601,7 @@ extends <a href="../../../com/qualcomm/ftccommon/FtcEventLoopBase.html" title="c
 <div class="block">If the driver station sends over a command, it will be routed to this method. You can choose
  what to do with this command, or you can just ignore it completely.
  <p>
- Called on RecvRunnable.run() thread. Method is thread safem, non-interfering</div>
+     Called on RecvRunnable.async() thread. Method is thread safem, non-interfering</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../com/qualcomm/robotcore/eventloop/EventLoop.html#processCommand(Command)">processCommand</a></code>&nbsp;in interface&nbsp;<code><a href="../../../com/qualcomm/robotcore/eventloop/EventLoop.html" title="interface in com.qualcomm.robotcore.eventloop">EventLoop</a></code></dd>

@@ -35,7 +35,6 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /*
  * This is an example LinearOpMode that shows how to use
@@ -71,7 +70,7 @@ public class SensorMRGyro extends LinearOpMode {
     gyro.calibrate();
 
     // make sure the gyro is calibrated.
-    while (!isStopRequested() && gyro.isCalibrating())  {
+    while (!isStopRequested() && gyro.isCalibrating()) {
       sleep(50);
       idle();
     }

@@ -243,7 +243,7 @@
 <div class="block">Init method, this will be called before the first call to loop. You should set up
  your hardware in this method.
 
- Threading: called on the RobotSetupRunnable.run() thread, before the EventLoopRunnable.run()
+    Threading: called on the RobotSetupRunnable.async() thread, before the EventLoopRunnable.async()
  thread is created.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>eventLoopManager</code> - event loop manager that is responsible for this event loop</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -264,7 +264,8 @@
                  java.lang.InterruptedException</pre>
 <div class="block">This method will be repeatedly called by the event loop manager.
 
- Threading: called on the EventLoopRunnable.run() thread.</div>
+    Threading: called on the EventLoopRunnable.async() thread.
+</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../com/qualcomm/robotcore/exception/RobotCoreException.html" title="class in com.qualcomm.robotcore.exception">RobotCoreException</a></code> - if a RobotCoreException is thrown, it will be handled
          by the event loop manager. The manager may decide to either stop processing
@@ -298,7 +299,8 @@
  into a safe state before this method exits, since there will be no more changes to communicate
  with your robot.
 
- Threading: called on the EventLoopRunnable.run() thread.</div>
+    Threading: called on the EventLoopRunnable.async() thread.
+</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../com/qualcomm/robotcore/exception/RobotCoreException.html" title="class in com.qualcomm.robotcore.exception">RobotCoreException</a></code> - if a RobotCoreException is thrown, it will be handled by the event
          loop manager. The manager will then attempt to shut down the robot without the benefit
@@ -373,7 +375,8 @@
 <div class="block">Process command method, this will be called if the event loop manager receives a user defined
  command. How this command is handled is up to the event loop implementation.
 
- Threading: called on the RecvRunnable.run() thread.</div>
+    Threading: called on the RecvRunnable.async() thread.
+</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>command</code> - command to process</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code>java.lang.InterruptedException</code></dd>
