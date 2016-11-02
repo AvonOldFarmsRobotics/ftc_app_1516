@@ -2,34 +2,34 @@ package org.opencv.core;
 
 /**
  * <p>Template class specifying a continuous subsequence (slice) of a sequence.</p>
- * <p>
+ *
  * <p>class CV_EXPORTS Range <code></p>
- * <p>
+ *
  * <p>// C++ code:</p>
- * <p>
- * <p>
+ *
+ *
  * <p>public:</p>
- * <p>
+ *
  * <p>Range();</p>
- * <p>
+ *
  * <p>Range(int _start, int _end);</p>
- * <p>
+ *
  * <p>Range(const CvSlice& slice);</p>
- * <p>
+ *
  * <p>int size() const;</p>
- * <p>
+ *
  * <p>bool empty() const;</p>
- * <p>
+ *
  * <p>static Range all();</p>
- * <p>
+ *
  * <p>operator CvSlice() const;</p>
- * <p>
+ *
  * <p>int start, end;</p>
- * <p>
+ *
  * <p>};</p>
- * <p>
+ *
  * <p>The class is used to specify a row or a column span in a matrix (</code></p>
- * <p>
+ *
  * <p>"Mat") and for many other purposes. <code>Range(a,b)</code> is basically the
  * same as <code>a:b</code> in Matlab or <code>a..b</code> in Python. As in
  * Python, <code>start</code> is an inclusive left boundary of the range and
@@ -41,23 +41,23 @@ package org.opencv.core;
  * OpenCV that take <code>Range</code> support this special <code>Range.all()</code>
  * value. But, of course, in case of your own custom processing, you will
  * probably have to check and handle it explicitly: <code></p>
- * <p>
+ *
  * <p>// C++ code:</p>
- * <p>
+ *
  * <p>void my_function(..., const Range& r,....)</p>
- * <p>
- * <p>
+ *
+ *
  * <p>if(r == Range.all()) {</p>
- * <p>
+ *
  * <p>// process all the data</p>
- * <p>
- * <p>
+ *
+ *
  * <p>else {</p>
- * <p>
+ *
  * <p>// process [r.start, r.end)</p>
- * <p>
- * <p>
- * <p>
+ *
+ *
+ *
  * <p></code></p>
  *
  * @see <a href="http://docs.opencv.org/modules/core/doc/basic_structures.html#range">org.opencv.core.Range</a>
@@ -79,10 +79,6 @@ public class Range {
         set(vals);
     }
 
-    public static Range all() {
-        return new Range(Integer.MIN_VALUE, Integer.MAX_VALUE);
-    }
-
     public void set(double[] vals) {
         if (vals != null) {
             start = vals.length > 0 ? (int) vals[0] : 0;
@@ -100,6 +96,10 @@ public class Range {
 
     public boolean empty() {
         return end <= start;
+    }
+
+    public static Range all() {
+        return new Range(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     public Range intersection(Range r1) {

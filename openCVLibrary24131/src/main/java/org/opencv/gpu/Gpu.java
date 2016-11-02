@@ -22,7 +22,8 @@ public class Gpu {
     // C++:  bool deviceSupports(int feature_set)
     //
 
-    public static boolean deviceSupports(int feature_set) {
+    public static boolean deviceSupports(int feature_set)
+    {
         boolean retVal = deviceSupports_0(feature_set);
         return retVal;
     }
@@ -32,7 +33,8 @@ public class Gpu {
     // C++:  int getCudaEnabledDeviceCount()
     //
 
-    public static int getCudaEnabledDeviceCount() {
+    public static int getCudaEnabledDeviceCount()
+    {
         int retVal = getCudaEnabledDeviceCount_0();
         return retVal;
     }
@@ -42,7 +44,8 @@ public class Gpu {
     // C++:  int getDevice()
     //
 
-    public static int getDevice() {
+    public static int getDevice()
+    {
         int retVal = getDevice_0();
         return retVal;
     }
@@ -52,8 +55,9 @@ public class Gpu {
     // C++:  void printCudaDeviceInfo(int device)
     //
 
-    public static void setDevice(int device) {
-        setDevice_0(device);
+    public static void printCudaDeviceInfo(int device)
+    {
+        printCudaDeviceInfo_0(device);
         return;
     }
 
@@ -62,8 +66,9 @@ public class Gpu {
     // C++:  void printShortCudaDeviceInfo(int device)
     //
 
-    public static void printCudaDeviceInfo(int device) {
-        printCudaDeviceInfo_0(device);
+    public static void printShortCudaDeviceInfo(int device)
+    {
+        printShortCudaDeviceInfo_0(device);
         return;
     }
 
@@ -72,8 +77,9 @@ public class Gpu {
     // C++:  void resetDevice()
     //
 
-    public static void printShortCudaDeviceInfo(int device) {
-        printShortCudaDeviceInfo_0(device);
+    public static void resetDevice()
+    {
+        resetDevice_0();
         return;
     }
 
@@ -82,10 +88,14 @@ public class Gpu {
     // C++:  void setDevice(int device)
     //
 
-    public static void resetDevice() {
-        resetDevice_0();
+    public static void setDevice(int device)
+    {
+        setDevice_0(device);
         return;
     }
+
+
+
 
     // C++:  bool deviceSupports(int feature_set)
     private static native boolean deviceSupports_0(int feature_set);
@@ -96,9 +106,6 @@ public class Gpu {
     // C++:  int getDevice()
     private static native int getDevice_0();
 
-    // C++:  void setDevice(int device)
-    private static native void setDevice_0(int device);
-
     // C++:  void printCudaDeviceInfo(int device)
     private static native void printCudaDeviceInfo_0(int device);
 
@@ -107,5 +114,8 @@ public class Gpu {
 
     // C++:  void resetDevice()
     private static native void resetDevice_0();
+
+    // C++:  void setDevice(int device)
+    private static native void setDevice_0(int device);
 
 }
