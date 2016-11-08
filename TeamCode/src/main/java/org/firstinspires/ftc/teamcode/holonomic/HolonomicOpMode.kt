@@ -10,11 +10,18 @@ import framework.ftc.cobaltforge.kobaltforge.annotation.GamePad1
 
 /**
  * Holonomic Drive Mode
+ * motors on in counter clockwise direction
+ *
+ * ^
+ * | positive
+ *
+ * 2 3
+ * 1 4
  * Created by Dummyc0m on 10/7/16.
  */
 @TeleOp(name = "HolonomicTele")
 open class HolonomicOpMode : KobaltForge() {
-    internal val vecUnit = 1 / Math.sqrt(2.0)
+    internal var vecUnit = 1 / Math.sqrt(2.0)
     internal val motorMagnitude = Math.sqrt(vecUnit * vecUnit * 2) //Math.sqrt(2);
     internal var vec1X = -vecUnit
     internal var vec1Y = -vecUnit
@@ -101,8 +108,7 @@ open class HolonomicOpMode : KobaltForge() {
         return Math.atan2(y, x)
     }
 
-    private fun clamp(a: Double): Double {
-        return if (a > 1) 1.0 else if (a < -1) -1.0 else a
-        //return a;
+    internal fun clamp(a: Double, max: Double = 1.0, min: Double = -1.0): Double {
+        return if (a > max) max else if (a < min) min else a
     }
 }

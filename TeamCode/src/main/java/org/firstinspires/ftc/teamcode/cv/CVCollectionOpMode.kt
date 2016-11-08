@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.os.Environment
 import android.util.Log
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
-import framework.ftc.cobaltforge.kobaltforge.KobaltForge
+import org.firstinspires.ftc.teamcode.holonomic.HolonomicOpMode
 import org.opencv.android.*
 import org.opencv.core.CvType
 import org.opencv.core.Mat
@@ -13,6 +13,7 @@ import org.opencv.core.Size
 import org.opencv.imgproc.Imgproc
 import java.io.File
 import java.io.FileOutputStream
+import java.io.FileWriter
 import java.io.IOException
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit
  * Created by Dummyc0m on 10/31/16.
  */
 @TeleOp(name = "CVCollect")
-class CVCollectionOpMode : KobaltForge() {
+class CVCollectionOpMode : HolonomicOpMode() {
     lateinit var mOpenCvCameraView: CameraBridgeViewBase
     lateinit var mGray: Mat
     lateinit var mRgba: Mat
@@ -30,9 +31,16 @@ class CVCollectionOpMode : KobaltForge() {
     private var lastSave = System.currentTimeMillis()
     private val folderName = System.currentTimeMillis().toString()
 
+    private val parentFolder = File(Environment.getExternalStorageDirectory(), "frames")
+
     override fun construct() {
-//        super.construct()
+        super.construct()
+        val sd = File(parentFolder, folderName)
+        val metaFile = File(sd, "metadata")
+        val writer = FileWriter(metaFile)
+
         onInit {
+
             mOpenCvCameraView = (hardwareMap.appContext as Activity).findViewById(com.qualcomm.ftcrobotcontroller.R.id.cvView) as CameraBridgeViewBase
             mOpenCvCameraView.visibility = CameraBridgeViewBase.VISIBLE
             mOpenCvCameraView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_BACK)
@@ -49,6 +57,7 @@ class CVCollectionOpMode : KobaltForge() {
 
                 override fun onCameraFrame(inputFrame: Mat): Mat {
                     mGray.release()
+                    mRgba.release()
                     Imgproc.cvtColor(inputFrame, mGray, Imgproc.COLOR_RGB2GRAY)
                     val output = mGray.clone()
 
@@ -62,13 +71,19 @@ class CVCollectionOpMode : KobaltForge() {
                             val bmp = Bitmap.createBitmap(output.cols(), output.rows(), Bitmap.Config.ARGB_8888)
                             Utils.matToBitmap(output, bmp)
                             output.release()
-                            val sd = File(File(Environment.getExternalStorageDirectory(), "frames"), folderName)
                             Log.d("CV", hardwareMap.appContext.filesDir.absolutePath)
                             if (sd.exists() || sd.mkdir()) {
                                 val dest = File(sd, "image-${("000000" + frameIndex).substring(frameIndex.toString().length)}.png")
+
+                                val x = this@CVCollectionOpMode.x
+                                val y = this@CVCollectionOpMode.y
+                                val leftX = this@CVCollectionOpMode.leftX
+
                                 frameIndex++
                                 var out: FileOutputStream? = null
                                 try {
+                                    writer.appendln(StringBuilder().append(x).append(" ").append(y).append(" ").append(leftX))
+                                    writer.flush()
                                     out = FileOutputStream(dest)
                                     bmp.compress(Bitmap.CompressFormat.PNG, 100, out) // bmp is your Bitmap instance
                                     // PNG is a lossless format, the compression factor (100) is ignored
@@ -81,6 +96,7 @@ class CVCollectionOpMode : KobaltForge() {
                                             out.close()
                                             Log.d("CV", "OK!!")
                                         }
+                                        writer.close()
                                     } catch (e: IOException) {
                                         Log.d("CV", e.message + "Error")
                                         e.printStackTrace()
@@ -117,8 +133,10 @@ class CVCollectionOpMode : KobaltForge() {
         }
 
         onStop {
-            mOpenCvCameraView.disableView()
+            writer.flush()
+            writer.close()
             shutdown()
+            mOpenCvCameraView.disableView()
         }
     }
 
@@ -134,6 +152,7 @@ class CVCollectionOpMode : KobaltForge() {
         }
 
         fun shutdown() {
+            executor.shutdown()
             executor.awaitTermination(10, TimeUnit.SECONDS)
         }
     }
