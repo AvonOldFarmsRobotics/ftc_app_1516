@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation
  * Created by Dummyc0m on 10/28/16.
  */
 class VuforiaBase : KobaltForge() {
-    protected var enableCamera = true
+    private var enableCamera = true
 
     override fun construct() {
         onInit {

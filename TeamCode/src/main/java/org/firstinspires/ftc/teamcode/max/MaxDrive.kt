@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.max
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.CRServo
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
@@ -12,10 +11,10 @@ import org.firstinspires.ftc.teamcode.holonomic.HolonomicOpMode
 /**
  * Created by Dummyc0m on 11/5/16.
  */
-@TeleOp(name = "MaxDrive")
+//@TeleOp(name = "MaxDrive")
 class MaxDrive : HolonomicOpMode() {
     @Device
-    lateinit var launchMotor: DcMotor;
+    lateinit var launchMotor: DcMotor
 
     @Device
     lateinit var tempServo: CRServo

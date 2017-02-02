@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.holonomic
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import framework.ftc.cobaltforge.kobaltforge.KobaltForge
@@ -13,7 +12,7 @@ import framework.ftc.cobaltforge.kobaltforge.util.Accumulator
  * Useless Op Mode
  * Created by Dummyc0m on 10/13/16.
  */
-@TeleOp(name = "SideHolo")
+//@TeleOp(name = "SideHolo")
 class SideHolonomicOpMode : KobaltForge() {
     @Device
     lateinit var xMotor1: DcMotor

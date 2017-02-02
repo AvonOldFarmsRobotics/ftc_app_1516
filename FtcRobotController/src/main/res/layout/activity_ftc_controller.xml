@@ -174,15 +174,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             android:textSize="40sp"
             android:textStyle="bold"
             android:visibility="invisible" />
-
-        <!-- CV -->
-        <org.opencv.android.JavaCameraView
-            android:id="@+id/cvView"
-            android:layout_width="fill_parent"
-            android:layout_height="300dp"
-            android:layout_above="@+id/textGamepad1"
-            android:layout_alignParentStart="true" />
-
     </RelativeLayout>
 
     <WebView
