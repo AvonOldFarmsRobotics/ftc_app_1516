@@ -11,7 +11,7 @@ import framework.ftc.cobaltforge.kobaltforge.util.abs
 
 /**
  * Holonomic Drive Mode
- * motors on in counter clockwise direction
+ * motors on in /*counter*/ clockwise direction
  *
  * ^
  * | positive

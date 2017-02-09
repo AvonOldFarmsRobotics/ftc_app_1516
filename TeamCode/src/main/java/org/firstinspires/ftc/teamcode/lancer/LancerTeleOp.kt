@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.Servo
+import com.qualcomm.robotcore.hardware.TouchSensor
 import framework.ftc.cobaltforge.kobaltforge.annotation.Component
 import framework.ftc.cobaltforge.kobaltforge.annotation.Device
 import framework.ftc.cobaltforge.kobaltforge.annotation.GamePad2
@@ -26,9 +27,9 @@ class LancerTeleOp : LancerHolonomicBase() {
 
     @Device lateinit var stop: Servo
 
-    @Device var minStop = false
+    @Device lateinit var minStop: TouchSensor
 
-    @Device var maxStop = false
+    @Device lateinit var maxStop: TouchSensor
 
     @GamePad2(Component.X) var stopButton = false
 
@@ -40,9 +41,10 @@ class LancerTeleOp : LancerHolonomicBase() {
 
     @GamePad2(Component.DPAD_RIGHT) var resetRight = false
 
-    @Inject private val launcher = LauncherProgram()
+    // This has to be var!!! do not try to optimize
+    @Inject private var launcher = LauncherProgram()
 
-    @Inject private val stopper = StopperProgram()
+    @Inject private var stopper = StopperProgram()
 
     private lateinit var launcherGroup: MotorGroup
 
@@ -85,8 +87,10 @@ class LancerTeleOp : LancerHolonomicBase() {
             intakeListener.newValue(intakeButton)
             stopperListener.newValue(stopButton)
             launchListener.newValue(launchButton)
-            launcherGroup.setPowers(launcher.update(minStop, maxStop))
-            stop.position = stopper.update(stop.position)
+            launcherGroup.setPowers(launcher.update(minStop.isPressed, maxStop.isPressed))
+            if (!stop.position.isNaN()) {
+                stop.position = stopper.update(stop.position)
+            }
             false
         }
     }

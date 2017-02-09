@@ -11,7 +11,7 @@ import framework.ftc.cobaltforge.kobaltforge.util.sqrt
  */
 class HolonomicProgram {
     @State
-    var vecUnit = 1 / 2.0.sqrt()
+    var vecUnit = 2 / 2.0.sqrt()
 
     private val motorMagnitude = (vecUnit * vecUnit * 2).sqrt() //Math.sqrt(2);
     private var vec1X = -vecUnit
