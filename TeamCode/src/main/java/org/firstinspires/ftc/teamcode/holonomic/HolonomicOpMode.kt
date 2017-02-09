@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.holonomic
 
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import framework.ftc.cobaltforge.kobaltforge.KobaltForge
@@ -20,7 +21,7 @@ import framework.ftc.cobaltforge.kobaltforge.util.abs
  * 1 4
  * Created by Dummyc0m on 10/7/16.
  */
-//@TeleOp(name = "HolonomicTele")
+@TeleOp(name = "HolonomicTele")
 open class HolonomicOpMode : KobaltForge() {
     internal var vecUnit = 1 / Math.sqrt(2.0)
     internal val motorMagnitude = Math.sqrt(vecUnit * vecUnit * 2) //Math.sqrt(2);
