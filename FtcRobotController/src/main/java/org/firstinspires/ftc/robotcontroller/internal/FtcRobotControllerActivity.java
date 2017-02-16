@@ -102,7 +102,6 @@ public class FtcRobotControllerActivity extends Activity {
   public static final String TAG = "RCActivity";
   public static final String NETWORK_TYPE_FILENAME = "ftc-network-type.txt";
   private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
-  private static final boolean USE_DEVICE_EMULATION = false;
   private static final int NUM_GAMEPADS = 2;
   protected WifiManager.WifiLock wifiLock;
   protected RobotConfigFileManager cfgFileMgr;
@@ -240,8 +239,6 @@ public class FtcRobotControllerActivity extends Activity {
     wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "");
 
     hittingMenuButtonBrightensScreen();
-
-    if (USE_DEVICE_EMULATION) { HardwareFactory.enableDeviceEmulation(); }
 
     wifiLock.acquire();
     callback.networkConnectionUpdate(WifiDirectAssistant.Event.DISCONNECTED);
