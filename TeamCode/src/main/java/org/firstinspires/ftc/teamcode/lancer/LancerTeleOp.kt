@@ -37,7 +37,7 @@ class LancerTeleOp : LancerHolonomicBase() {
 
     @GamePad2(Component.B) var intakeButton = false
 
-    @GamePad2(Component.DPAD_LEFT) var resetLeft = false
+//    @GamePad2(Component.DPAD_LEFT) var resetLeft = false
 
     @GamePad2(Component.DPAD_RIGHT) var resetRight = false
 
@@ -59,10 +59,12 @@ class LancerTeleOp : LancerHolonomicBase() {
     override fun construct() {
         super.construct()
         onInit {
+            debug = true
+
             launcher0.direction = DcMotorSimple.Direction.FORWARD
             launcher1.direction = DcMotorSimple.Direction.REVERSE
 
-            lift.direction = DcMotorSimple.Direction.FORWARD
+            lift.direction = DcMotorSimple.Direction.REVERSE
             stop.direction = Servo.Direction.FORWARD
 
             intake.direction = DcMotorSimple.Direction.FORWARD
@@ -75,7 +77,7 @@ class LancerTeleOp : LancerHolonomicBase() {
         }
 
         onLoop {
-            if (resetLeft && resetRight) {
+            if (/* resetLeft && */ resetRight) {
                 stopper.pos2()
                 launcher.home()
             }
@@ -87,7 +89,9 @@ class LancerTeleOp : LancerHolonomicBase() {
             intakeListener.newValue(intakeButton)
             stopperListener.newValue(stopButton)
             launchListener.newValue(launchButton)
-            launcherGroup.setPowers(launcher.update(minStop.isPressed, maxStop.isPressed))
+            val launchPowers = launcher.update(minStop.isPressed, maxStop.isPressed)
+            launcherGroup.setPowers(launchPowers)
+            telemetry(launchPowers)
             if (!stop.position.isNaN()) {
                 stop.position = stopper.update(stop.position)
             }
