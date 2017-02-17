@@ -44,7 +44,7 @@ class LancerTeleOp : LancerHolonomicBase() {
 
     @GamePad2(Component.RIGHT_BUMPER) var flipIntakeButton = false
 
-    private var intakeDirection = false
+    private var intakeDirection = true
 
 //    @GamePad2(Component.DPAD_RIGHT) var resetRight = false
 
