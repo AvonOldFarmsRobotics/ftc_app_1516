@@ -14,7 +14,7 @@ import framework.ftc.cobaltforge.kobaltforge.util.MotorGroup
  * copied from HolonomicOpMode
  * Created by Dummyc0m on 2/4/17.
  */
-@TeleOp(name = "LancerBaseOnly")
+@TeleOp(name = "LancerBase")
 open class LancerHolonomicBase : KobaltForge() {
     @Device lateinit var motor1: DcMotor
 
@@ -45,20 +45,24 @@ open class LancerHolonomicBase : KobaltForge() {
             motor3.direction = DcMotorSimple.Direction.FORWARD
             motor4.direction = DcMotorSimple.Direction.REVERSE
 
-            motor1.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
-            motor2.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
-            motor3.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
-            motor4.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+//            motor1.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+//            motor2.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+//            motor3.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+//            motor4.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+            motor1.mode = DcMotor.RunMode.RUN_USING_ENCODER
+            motor2.mode = DcMotor.RunMode.RUN_USING_ENCODER
+            motor3.mode = DcMotor.RunMode.RUN_USING_ENCODER
+            motor4.mode = DcMotor.RunMode.RUN_USING_ENCODER
 
             holonomicGroup = MotorGroup(motor1, motor2, motor3, motor4)
         }
 
         onLoop {
             holonomicGroup.setPowers(holonomicProgram.calculateMotorPower(leftX, leftY, rightX, rightY))
-//            telemetry(motor1.currentPosition)
-//            telemetry(motor2.currentPosition)
-//            telemetry(motor3.currentPosition)
-//            telemetry(motor4.currentPosition)
+            telemetry(motor1.currentPosition)
+            telemetry(motor2.currentPosition)
+            telemetry(motor3.currentPosition)
+            telemetry(motor4.currentPosition)
             false
         }
     }

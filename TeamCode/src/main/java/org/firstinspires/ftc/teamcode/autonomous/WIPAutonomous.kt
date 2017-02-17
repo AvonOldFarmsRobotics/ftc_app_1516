@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.autonomous
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import framework.ftc.cobaltforge.kobaltforge.KobaltForge
@@ -11,7 +10,7 @@ import framework.ftc.cobaltforge.kobaltforge.util.abs
  * First Beacon 63(1600mm), Second 110(2794)
  * Created by Dummyc0m on 11/12/16.
  */
-@Autonomous(name = "WIP", group = "Samson")
+//@Autonomous(name = "WIP", group = "Samson")
 //@TeleOp(name = "Simple Holonomic")
 class WIPAutonomous : KobaltForge() {
     internal var vecUnit = 1 / Math.sqrt(2.0)

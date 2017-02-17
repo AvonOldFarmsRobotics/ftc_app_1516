@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.samson
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.Servo
 import com.qualcomm.robotcore.hardware.TouchSensor
@@ -18,7 +17,7 @@ import org.firstinspires.ftc.teamcode.holonomic.HolonomicOpMode
  * The Samson robot with a lot more complicated code // much complex very wow
  * Created by Dummyc0m on 12/3/16.
  */
-@TeleOp(name = "SamsonPrimary", group = "Samson")
+//@TeleOp(name = "SamsonPrimary", group = "Samson")
 class SamsonPrimary : HolonomicOpMode() {
     @State
     var launchPosOn = 300
