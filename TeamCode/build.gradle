@@ -21,6 +21,7 @@ dependencies {
     //    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 android {
+    buildToolsVersion '25.0.0'
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
