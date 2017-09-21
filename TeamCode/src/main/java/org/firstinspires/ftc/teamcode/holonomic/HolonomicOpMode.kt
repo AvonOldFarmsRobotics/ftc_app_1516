@@ -21,7 +21,7 @@ import framework.ftc.cobaltforge.kobaltforge.util.abs
  * 1 4
  * Created by Dummyc0m on 10/7/16.
  */
-@TeleOp(name = "HolonomicTele")
+@TeleOp(name = "HolonomicTele", group = "holo")
 open class HolonomicOpMode : KobaltForge() {
     internal var vecUnit = 1 / Math.sqrt(2.0)
     internal val motorMagnitude = Math.sqrt(vecUnit * vecUnit * 2) //Math.sqrt(2);
@@ -74,12 +74,24 @@ open class HolonomicOpMode : KobaltForge() {
             motor2.direction = DcMotorSimple.Direction.REVERSE
             motor3.direction = DcMotorSimple.Direction.REVERSE
             motor4.direction = DcMotorSimple.Direction.FORWARD
+
+            motor1.mode = DcMotor.RunMode.RUN_USING_ENCODER
+            motor2.mode = DcMotor.RunMode.RUN_USING_ENCODER
+            motor3.mode = DcMotor.RunMode.RUN_USING_ENCODER
+            motor4.mode = DcMotor.RunMode.RUN_USING_ENCODER
         }
 
         onLoop {
+//            x2=-x2
             // x = -x
 //            val calculatedY = if (leftY2.abs() > y2.abs()) leftY2 else y2
 //            val calculatedX = if (leftY2.abs() > x2.abs()) -leftY2 else -x2
+
+            telemetry.addData("M1", motor1.currentPosition)
+            telemetry.addData("M2", motor2.currentPosition)
+            telemetry.addData("M3", motor3.currentPosition)
+            telemetry.addData("M4", motor4.currentPosition)
+
 
             val calcY = if (y2.abs() > y.abs()) {
                 if (leftY.abs() > y2.abs()) leftY else y2
